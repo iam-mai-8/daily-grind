@@ -32,7 +32,34 @@ let myDate =new Date();
 let today =myDate.getDay();
 let coffee ="";
 
+//use location object to access querystring (address bar)
+const queryString = window.location.search;
+    
+//output to console    
+console.log(queryString);
+    
+//separate querystring parameters
+const urlParams = new URLSearchParams(queryString);
+
+if(urlParams.has("day")){//from querystring
+    today = urlParams.get("day");
+}
+//convert the string to an integer
+today = parseInt(today);
+
+
 switch(today){
+    case 0:
+        today = "Sunday";
+        coffee= {
+            color:"Tan",
+            name:"Mocha",
+            pic:"mocha.jpg",
+            alt:"A picture of mocha",
+            day:"Sunday",
+            desc:`Last day of the weekend, I want to chill with a mocha!`
+        };
+    break;
         case 1:
             today = "Monday";
             coffee= {
@@ -95,6 +122,18 @@ switch(today){
             };
         break;
 
+        case 6:
+            today = "Saturday";
+            coffee= {
+                color:"blue",
+                name:"cold-brew",
+                pic:"cold-brew.jpg",
+                alt:"A picture of a cold brew",
+                day:"Sunday",
+                desc:`It's cold brew keeps the vibes up!`
+            };
+        break;
+
         default:
             alert("Something went wrong!");
 
@@ -106,3 +145,6 @@ switch(today){
 console.log(coffee);
 
 document.getElementById("coffee-template").innerHTML=coffeeTemplate(coffee);
+
+  //Here we are changing the background color of the html tag
+  document.querySelector("html").style.backgroundColor = coffee.color;
